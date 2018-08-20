@@ -29,7 +29,6 @@ A complete description of the project to be added.
   <img width="430" alt="Selection bias issue" src="https://raw.githubusercontent.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/master/Pics/Selection_bias.png"><img width="430" alt="Population drift issue" src="https://raw.githubusercontent.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/master/Pics/Population_drift.png">
 </p>
 
-
 ## Solution
 <p align = "justify">
   We solve the problem by developing and applying a reinforcement learning (RL) agent: a dynamic forward-looking system that adapts to the live data feedback (incoming loan applications) and adjusts acceptance threshold to maximize credit company's profits. The reinforcement learning problem is described by the interaction between the credit business environment and the RL agent. The interaction frequency is 1 week. The state space of environment consists of a continuous acceptance rate (in the previous week) variable that spans from 0 to 1. The action space consists of the discrete credit score acceptance threshold (for the following week) variable  that spans from 5 to 100 by the step of 5 (20 discrete actions). The reward variable is the company's profits. A more detailed RL problem specification can be found in the work.
@@ -42,4 +41,60 @@ A complete description of the project to be added.
 </p>
 <p align = "center">
   <img width = "600" alt = "Value function architecture" src = "https://raw.githubusercontent.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/master/Pics/Value_function_architecture.png">
+</p>
+<p align = "justify">
+  The RL agent was trained using a Monte Carlo simulation of the credit business process. For training 100 simulation episodes were used. Each simulation episode cosists of 114 simulated weeks, 52 of which are warm-up with no interaction, 60 are interactive when the RL agent observes the state, chooses an action and learns the value function from the reward it gets later and 22 are weeks of delayed learning when the agent doesn't interact with the environment but observes delayed rewards and learns the value function. On average one training simulation episode takes around 5 minutes.
+</p>
+<p align = "center">
+  <img width = "600" alt = "Training simulation episode structure" src = "https://raw.githubusercontent.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/master/Pics/Training_simulation_episode_structure.png">
+</p>
+
+## Results
+### Baseline results
+<p align = "justify">
+  First, we apply the traditional approach to the cutoff point optimization based on the test dataset of loan applications for the credit scoring model. We compute the potential profit for the same range of acceptance threshold values as the action space of the reinforcement learning agent: from 5 to 100 by step of 5. One can notice that the lower the acceptance threshold, the more loan applications get accepted, the more issued loans default, the bigger the final loss. On the other hand, the higher the acceptance threshold, the less loan applications get accepted, the closer to zero the profit gets. The optimal acceptance threshold is found by maximizing profit and is equal to a credit score of 65.
+</p>
+<p align = "center">
+  <img width = "600" alt = "Baseline results" src = "https://raw.githubusercontent.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/master/Pics/Baseline_results.png">
+</p>
+
+### Reinforcement learning results
+<p align = "justify">
+  Next, by performing the simulation-based training of the reinforcement learning agent as described above we approximate the Q-value function. The shape of the latter is very similar to the potential profit curve computed with the traditional approach: low acceptance thresholds have the lowest value and high acceptance thresholds have higher but still suboptimal value. The optimum is found by maximizing the value and corresponds to the same credit score of 65. Thus, the reinforcement learning approach can do as well as the traditional one in a static environment.
+</p>
+<p align = "center">
+  <img width = "600" alt = "Value function shape" src = "https://raw.githubusercontent.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/master/Pics/Value_function_shape.png">
+</p>
+
+### Performance comparison: simulated environments
+<p align = "justify">
+  To test the performance of the proposed approach in dynamic conditions we adjust the simulation parameters to mimic certain changes in the credit business environment. We simulate downwards and upwards shifts in the credit score distribution mimicing the population drift and downwards and upwards shift in default rates mimicing the selection bias issue. The reinforcement learning algorithm manages to adapt to the new environments very quickly significantly outperforming the traditional approach in terms of profits according to the one-tailed t-test.
+</p>
+<p align = "center">
+  <img width = "600" alt = "Performance comperison: simulated environments" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/RL_results_simulation.png">
+</p>
+
+<p align = "center">
+  
+  |Scenario | t-statistic | p-value|
+  |:--------|-------------|--------|
+  |Scenario 1: downwards shift in score distribution	| 29.56631	| 1.55E-51 |
+  |Scenario 2: upwards shift in score distribution	| 42.72066 |	2.45E-66 |
+  |Scenario 3: downwards shift in default rates	| 5.172688	| 5.95E-07 |
+  |Scenario 4: upwards shift in default rates	| 4.600158	| 6.20E-06 |
+
+</p>
+
+### Performance comparison: real environment
+<p align = "justify">
+  
+</p>
+<p align = "center">
+  <img width = "600" alt = "Performance comparison: real environment actions" src = "https://raw.githubusercontent.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/master/Pics/RL_results_action.png">
+</p>
+<p align = "justify">
+  
+</p>
+<p align = "center">
+  <img width = "600" alt = "Performance comparison: real environment rewards" src = "https://raw.githubusercontent.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/master/Pics/RL_results_reward.png">
 </p>
