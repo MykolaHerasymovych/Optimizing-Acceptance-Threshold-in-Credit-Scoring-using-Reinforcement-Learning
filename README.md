@@ -7,6 +7,16 @@ The source code for the project can be found in the Source directory.
 A complete description of the project to be added.
 </p>
 
+## Table of Contents
+- **[Background](#background)**<br>
+- **[Problem](#problem)**<br>
+- **[Solution](#solution)**<br>
+- **[Results](#results)**<br>
+  - **[Baseline results](#baseline-results)**<br>
+  - **[Reinforcement learning results](#reinforcement-learning-results)**<br>
+  - **[Performance comparison: simulated environments](#performance-comparison-simulated-environments)**<br>
+  - **[Performance comparison: real environment](#performance-comparison-real-environment)**<br>
+
 ## Background
 <p align = "justify">
   The problem environment considered is a trivial credit business process. It starts when the loan provider receives a loan application with the data about the application and the potential borrower. The data is then passed to a credit scoring model that outputs a credit score which reflects the risk level of the loan application. Next, if the score is too low, the lender rejects the loan application. In case the score is high enough, the lender issues the loan. Eventually, if the loan applicant doesn't repay or defaults on their loan, the lender loses the money. In case the loan applicant repays, the lender gains extra money (from interest and fees). In the end, any of those cases affect the lender's profits.
