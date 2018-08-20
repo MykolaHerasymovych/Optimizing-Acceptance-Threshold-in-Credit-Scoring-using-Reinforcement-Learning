@@ -4,10 +4,11 @@
 
 The source code for the project can be found in the Source directory.
 
-A complete description of the project to be added.
+Table and image descriptions to be added.
 </p>
 
 ## Table of Contents
+- **[Abstract](#abstract)**<br>
 - **[Background](#background)**<br>
 - **[Problem](#problem)**<br>
 - **[Solution](#solution)**<br>
@@ -16,7 +17,13 @@ A complete description of the project to be added.
   - **[Reinforcement learning results](#reinforcement-learning-results)**<br>
   - **[Performance comparison: simulated environments](#performance-comparison-simulated-environments)**<br>
   - **[Performance comparison: real environment](#performance-comparison-real-environment)**<br>
+- **[Summary](#summary)**<br>
 
+## Abstract
+<p align = "justify">
+  The thesis investigates issues of credit scoring model acceptance threshold optimization in a consumer credit company, such as model’s performance uncertainty, selection bias, population drift and business objective misspecification. We show that traditional static approaches based on cost sensitive optimization do not ensure the optimality of the acceptance threshold, which might lead to biased conclusions and significant losses to the firm. We develop a dynamic reinforcement learning system that constantly adapts the threshold in response to the live data feedback, maximizing company’s profits. The developed algorithm is shown to outperform the traditional approach in terms of profits both in various simulated scenarios and on the real data of an international consumer credit company.
+</p>
+  
 ## Background
 <p align = "justify">
   The problem environment considered is a trivial credit business process. It starts when the loan provider receives a loan application with the data about the application and the potential borrower. The data is then passed to a credit scoring model that outputs a credit score which reflects the risk level of the loan application. Next, if the score is too low, the lender rejects the loan application. In case the score is high enough, the lender issues the loan. Eventually, if the loan applicant doesn't repay or defaults on their loan, the lender loses the money. In case the loan applicant repays, the lender gains extra money (from interest and fees). In the end, any of those cases affect the lender's profits.
@@ -108,4 +115,17 @@ A complete description of the project to be added.
 </p>
 <p align = "center">
   <img width = "800" alt = "Performance comparison: real environment rewards" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/RL_results_reward.png">
+</p>
+
+## Summary
+<p align = "justify">
+  The results show that the traditional cutoff optimization approach does not ensure the optimality of the acceptance threshold, which might lead to biased conclusions and significant losses. The proposed dynamic reinforcement learning system manages to outperform the traditional method both in simulated and real credit business environments leading to significantly higher total profits of the credit company. The main advantages of the developed approach are: 
+</p>
+
+  1. <p align = "justify">its constant adaptation to and learning from actual data generating process, which removes the need for theoretical simplifications and keeps the algorithm up to date;</p> 
+  2. <p align = "justify">flexible objective function definition that makes it easy to accurately specify the decision maker’s preferences and adjust them on the go if needed;</p>
+  3. <p align = "justify">ability to train and test it in a simulated environment that lets the company avoid costly poor initial performance and stress test various scenarios.</p>
+
+<p align = "justify">
+  Overall, the developed algorithm can be immediately put into practice to accompany lender's decisions and is currently used by the company as a decision support system.
 </p>
