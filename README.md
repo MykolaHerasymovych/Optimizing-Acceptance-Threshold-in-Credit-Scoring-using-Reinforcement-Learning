@@ -2,6 +2,8 @@
 <p align = "justify">
   This is a repository for my master thesis submitted as a part of the Master of Arts in Quantitative Economics degree at the University of Tartu. The research was conducted in 2017-2018 at Creditstar Group, Estonia under the supervision of Karl Märka, Head of Data Science at Creditstar Group, and Oliver Lukason, PhD at the University of Tartu.
 
+The full text of the master thesis can be found [here](../master/Master%20Thesis.pdf).
+
 The source code for the project can be found in the [Source](../master/Source) directory.
 </p>
 
