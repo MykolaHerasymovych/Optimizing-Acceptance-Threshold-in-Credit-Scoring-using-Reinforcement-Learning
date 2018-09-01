@@ -2,9 +2,7 @@
 <p align = "justify">
   This is a repository for my master thesis submitted as a part of the Master of Arts in Quantitative Economics degree at the University of Tartu. The research was conducted in 2017-2018 at Creditstar Group, Estonia under the supervision of Karl Märka, Head of Data Science at Creditstar Group, and Oliver Lukason, PhD at the University of Tartu.
 
-The source code for the project can be found in the Source directory.
-
-Table and image descriptions to be added.
+The source code for the project can be found in the [Source](../blob/master/Source) directory.
 </p>
 
 ## Table of Contents
@@ -31,11 +29,17 @@ Table and image descriptions to be added.
 <p align = "center">
   <img width = "600" alt = "Credit business process" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Credit_business_process.png">
 </p>
+<p align = "center">
+  <b>Figure 1.</b> Credit business process illustration based on the Credistar Group practice.
+</p>
 <p align = "justify">
   In order to make the final accept / reject decision about a loan application, its credit score is compared to an acceptance threshold or cutoff point. The latter thus regulates the acceptance rates of a credit company and resulting default rates. The problem investigated in the master thesis is the optimization of an acceptance threshold to maximize credit company's profits. The traditional approach to the problem is to simply optimize the cutoff based on the credit score distribution of an independent test dataset of loan applications. Knowing the outcomes of all the loans in the dataset each possible acceptance threshold is considered and the corresponding profits are calculated. The optimal cutoff point is the one that corresponds to the maximum profit. In case the train / test split of loan application dataset is random, the acceptance threshold optimized for the test dataset is going to be optimal for the train dataset.
 </p>
 <p align = "center">
   <img width = "430" alt = "Acceptance threshold optimization: traditional approach" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Acceptance_threshold_optimization_1.png"><img width = "430" alt = "Acceptance threshold optimization: traditional approach" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Acceptance_threshold_optimization_2.png">
+</p>
+<p align = "center">
+  <b>Figure 2.</b> Traditional cost-sensitive optimization illustration.
 </p>
 
 ## Problem
@@ -45,6 +49,9 @@ Table and image descriptions to be added.
 <p align = "center">
   <img width="430" alt="Selection bias issue" src="https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Selection_bias.png"><img width="430" alt="Population drift issue" src="https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Population_drift.png">
 </p>
+<p align = "center">
+  <b>Figure 3.</b> Issues of the traditional approach: selection bias (left) and population drift (right).
+</p>
 
 ## Solution
 <p align = "justify">
@@ -53,17 +60,29 @@ Table and image descriptions to be added.
 <p align = "center">
   <img width = "800" alt = "RL scheme" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/RL_scheme_complex.png">
 </p>
+<p align = "center">
+  <b>Figure 3.</b> The scheme of reinforcement learning algorithm for a credit scoring acceptance threshold optimization in a consumer credit company.
+</p>
+<p align = "justify">
+  <b>Notes:</b> The figure shows the scheme of the interaction loop between the environment (the simulation) and reinforcement learning agent. The outer loop reflects state – action – reward exchange between the two. The inner loop shows the state – action evaluation and learning from reward by the RL agent. <i>S</i> – state or weekly acceptance rate, <i>A</i> – action or acceptance threshold, <i>Q</i> – action state value prediction, <i>R</i> – reward or profits, <i>α</i> – learning rate, <i>γ</i> – discount parameter, <i>S'</i> - following state.
+</p>
 <p align = "justify">
   We solve the reinforcement learning problem with a simple Q-learning algorithm. Thus, the main goal is to approximate the Q-value function that is the mapping from state to expected discounted reward for each action. We preprocess state variable with Gaussian Radial Basis functions (RBFs) transformation to account for the non-linear nature of the value function. We use a set of 4 RBFs with 500 outputs each that gives us the output of 2000 preprocessed features. We then apply a separate Stochastic Gradient Descent (SGD) linear model for each action to approximate its Q-value, which results in 20 Q-values. Based on the predicted Q-values we use either greedy or Boltzmann-Q policy to choose an action in testing or training regime respectively. During the training only the SGD weights are learned.
 </p>
 <p align = "center">
   <img width = "600" alt = "Value function architecture" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Value_function_architecture.png">
 </p>
+<p align = "center">
+  <b>Figure 4.</b> Value function model and policy architecture of the reinforcement learning agent.
+</p>
 <p align = "justify">
   The RL agent was trained using a Monte Carlo simulation of the credit business process. For training 100 simulation episodes were used. Each simulation episode cosists of 114 simulated weeks, 52 of which are warm-up with no interaction, 60 are interactive when the RL agent observes the state, chooses an action and learns the value function from the reward it gets later and 22 are weeks of delayed learning when the agent doesn't interact with the environment but observes delayed rewards and learns the value function. On average one training simulation episode takes around 5 minutes.
 </p>
 <p align = "center">
-  <img width = "600" alt = "Training simulation episode structure" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Training_simulation_episode_structure.png">
+  <img width = "600" alt = "Training simulated episode structure" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Training_simulation_episode_structure.png">
+</p>
+<p align = "center">
+  <b>Figure 5.</b> Training simulated episode structure of the reinforcement learning system.
 </p>
 
 ## Results
@@ -74,6 +93,12 @@ Table and image descriptions to be added.
 <p align = "center">
   <img width = "600" alt = "Baseline results" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Baseline_results.png">
 </p>
+<p align = "center">
+  <b>Figure 6.</b> Baseline threshold optimization results: potential profit and corresponding acceptance rate for every acceptance threshold based on the test dataset.
+</p>
+<p align = "justify">
+  <b>Notes:</b> Profit is measured in thousands of euros.
+</p>
 
 ### Reinforcement learning results
 <p align = "justify">
@@ -82,6 +107,12 @@ Table and image descriptions to be added.
 <p align = "center">
   <img width = "600" alt = "Value function shape" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/Value_function_shape.png">
 </p>
+<p align = "center">
+  <b>Figure 7.</b> Value function model shape .
+</p>
+<p align = "justify">
+  <b>Notes:</b> State denotes the application acceptance rate during the previous week, action denotes the acceptance threshold for the following week, value is the prediction of the value function model for a particular state action pair, optimum shows the state action pair that corresponds to the highest value in the state action space.
+</p>
 
 ### Performance comparison: simulated environments
 <p align = "justify">
@@ -89,6 +120,15 @@ Table and image descriptions to be added.
 </p>
 <p align = "center">
   <img width = "600" alt = "Performance comperison: simulated environments" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/RL_results_simulation.png">
+</p>
+<p align = "center">
+  <b>Figure 8.</b> Performance comperison: simulated environments.
+</p>
+<p align = "justify">
+  <b>Notes:</b> the figure shows the difference between reward variables and the baseline reward during interaction phase. Baseline denotes the profits received with the acceptance threshold optimized using the traditional approach. The upper figures for each scenario show cumulative profits for each out of 100 simulated episodes and their mean. For easier perception rewards are calculated for the week the corresponding loans were issued in (for instance, the reward for week 0 shows profits generated by loan applications issued in week 0). The lower figures show the distribution of episode profits for each out of 100 simulated episodes and their mean. Profit is measured in thousands of euros.
+</p>
+<p align = "center">
+  <b>Table 1.</b> Results of the t-test for various distortion scenarios.
 </p>
 
 <p align = "center">
@@ -101,6 +141,9 @@ Table and image descriptions to be added.
   |Scenario 4: upwards shift in default rates	| 4.600158	| 6.20E-06 |
 
 </p>
+<p align = "justify">
+  <b>Notes:</b> the t-test null hypothesis is that the mean difference between the episode reward received by the RL agent and the episode reward received using the traditional approach throughout 100 episodes is equal to or lower than zero.
+</p>
 
 ### Performance comparison: real environment
 <p align = "justify">
@@ -109,12 +152,24 @@ Table and image descriptions to be added.
 <p align = "center">
   <img width = "800" alt = "Performance comparison: real environment actions" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/RL_results_action.png">
 </p>
+<p align = "center">
+  <b>Figure 9.</b> The dynamics of the action difference between the actual action taken and the baseline action, value function optimized action and the baseline action during the real episode.
+</p>
+<p align = "justify">
+  <b>Notes:</b> the figure shows the difference between action variables and the baseline action during interaction and delayed learning phases. Baseline denotes the acceptance threshold optimized using the traditional approach, actual denotes the one used by the RL agent, value function optimal denotes the one optimal according to the value function model.
+</p>
 
 <p align = "justify">
   And if one looks at the profits received by the agent, one can see that they oscillate around the baseline during the initial exploration phase, but once the agent adapts to the new environment, they tend to be higher than the baseline profits leading to a significantly higher total profit in the end of the 24th week.
 </p>
 <p align = "center">
   <img width = "800" alt = "Performance comparison: real environment rewards" src = "https://github.com/MykolaGerasymovych/Optimizing-Acceptance-Threshold-in-Credit-Scoring-using-Reinforcement-Learning/blob/master/Pics/RL_results_reward.png">
+</p>
+<p align = "center">
+  <b>Figure 10.</b> The dynamics of the (cumulative) reward difference between the actual reward received and the baseline reward during the real episode.
+</p>
+<p align = "justify">
+  <b>Notes:</b> the figure shows the difference between reward variables and the baseline reward during interaction phase. Baseline denotes the profits received with the acceptance threshold optimized using the traditional approach, actual and cumulative denote profits received by the RL agent. For easier perception rewards are calculated for the week the corresponding loans were issued in (for instance, the reward for week 0 shows profits generated by loan applications issued in week 0). Profit is measured in thousands of euros.
 </p>
 
 ## Summary
