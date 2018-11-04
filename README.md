@@ -1,8 +1,8 @@
 # Optimizing Acceptance Threshold in Credit Scoring using Reinforcement Learning
 <p align = "justify">
-  This is a repository for my master thesis submitted as a part of the Master of Arts in Quantitative Economics degree at the University of Tartu. The research was conducted in 2017-2018 at Creditstar Group, Estonia under the supervision of Karl Märka, Head of Data Science at Creditstar Group, and Oliver Lukason, PhD at the University of Tartu.
+  This is a repository for a research project conducted in 2017-2018 at Creditstar Group, Estonia under the supervision of Karl Märka, Head of Data Science at Creditstar Group, and Oliver Lukason, PhD at the University of Tartu.
 
-The full text of the master thesis can be found [here](../master/Master%20Thesis.pdf).
+The research article can be found [here](../master/Article.pdf).
 
 The source code for the project can be found in the [Source](../master/Source) directory.
 </p>
@@ -21,7 +21,7 @@ The source code for the project can be found in the [Source](../master/Source) d
 
 ## Abstract
 <p align = "justify">
-  The thesis investigates issues of credit scoring model acceptance threshold optimization in a consumer credit company, such as model’s performance uncertainty, selection bias, population drift and business objective misspecification. We show that traditional static approaches based on cost sensitive optimization do not ensure the optimality of the acceptance threshold, which might lead to biased conclusions and significant losses to the firm. We develop a dynamic reinforcement learning system that constantly adapts the threshold in response to the live data feedback, maximizing company’s profits. The developed algorithm is shown to outperform the traditional approach in terms of profits both in various simulated scenarios and on the real data of an international consumer credit company.
+  The paper aims to study, whether using reinforcement learning to optimize acceptance threshold in credit scoring leads to higher profits of the lender compared to using a traditional optimization approach. We show that traditional static methods based on cost sensitive optimization do not ensure the optimality of the acceptance threshold, which might lead to biased conclusions and significant losses to the firm. We develop a dynamic reinforcement learning system that constantly adapts the threshold in response to the live data feedback, maximizing company’s profits. The developed algorithm is shown to outperform the traditional approach in terms of profits both in various simulated scenarios and on the real data of an international consumer credit company
 </p>
   
 ## Background
@@ -35,7 +35,7 @@ The source code for the project can be found in the [Source](../master/Source) d
   <b>Figure 1.</b> Credit business process illustration based on the Credistar Group practice.
 </p>
 <p align = "justify">
-  In order to make the final accept / reject decision about a loan application, its credit score is compared to an acceptance threshold or cutoff point. The latter thus regulates the acceptance rates of a credit company and resulting default rates. The problem investigated in the master thesis is the optimization of an acceptance threshold to maximize credit company's profits. The traditional approach to the problem is to simply optimize the cutoff based on the credit score distribution of an independent test dataset of loan applications. Knowing the outcomes of all the loans in the dataset each possible acceptance threshold is considered and the corresponding profits are calculated. The optimal cutoff point is the one that corresponds to the maximum profit. In case the train / test split of loan application dataset is random, the acceptance threshold optimized for the test dataset is going to be optimal for the train dataset.
+  In order to make the final accept / reject decision about a loan application, its credit score is compared to an acceptance threshold or cutoff point. The latter thus regulates the acceptance rates of a credit company and resulting default rates. The problem investigated is the optimization of an acceptance threshold to maximize credit company's profits. The traditional approach to the problem is to simply optimize the cutoff based on the credit score distribution of an independent test dataset of loan applications. Knowing the outcomes of all the loans in the dataset each possible acceptance threshold is considered and the corresponding profits are calculated. The optimal cutoff point is the one that corresponds to the maximum profit. In case the train / test split of loan application dataset is random, the acceptance threshold optimized for the test dataset is going to be optimal for the train dataset.
 </p>
 <p align = "center">
   <img width = "430" alt = "Acceptance threshold optimization: traditional approach" src = "../master/Pics/Acceptance_threshold_optimization_1.png"><img width = "430" alt = "Acceptance threshold optimization: traditional approach" src = "../master/Pics/Acceptance_threshold_optimization_2.png">
